@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import engineer.mkitsoukou.ntango.domain.ScheduleResult;
-import engineer.mkitsoukou.ntango.domain.Task;
+import engineer.mkitsoukou.ntango.domain.model.ScheduleResult;
+import engineer.mkitsoukou.ntango.domain.model.Task;
 import engineer.mkitsoukou.ntango.usescases.ScheduleTasksUseCase;
 
 @RestController

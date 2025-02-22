@@ -10,8 +10,8 @@ import org.chocosolver.solver.Solution;
 import org.chocosolver.solver.variables.IntVar;
 import org.springframework.stereotype.Service;
 
-import engineer.mkitsoukou.ntango.domain.ScheduleResult;
-import engineer.mkitsoukou.ntango.domain.Task;
+import engineer.mkitsoukou.ntango.domain.model.ScheduleResult;
+import engineer.mkitsoukou.ntango.domain.model.Task;
 
 @Service
 public class ScheduleTasksUseCase {
