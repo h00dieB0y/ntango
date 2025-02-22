@@ -1,4 +1,4 @@
-package engineer.mkitsoukou.ntango.domain;
+package engineer.mkitsoukou.ntango.domain.model;
 
 public record Task(
     String id,
