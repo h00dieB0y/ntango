@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import engineer.mkitsoukou.ntango.domain.model.FixedTask;
 import engineer.mkitsoukou.ntango.domain.model.Interval;
 
+@Service
 public class FreeIntervalCalculator {
   
     public List<Interval> computeFreeIntervals(List<FixedTask> fixedTasks, int horizonStart, int horizonEnd) {
