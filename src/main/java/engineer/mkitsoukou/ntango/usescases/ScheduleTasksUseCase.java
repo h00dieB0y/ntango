@@ -11,7 +11,7 @@ import org.chocosolver.solver.variables.IntVar;
 import org.springframework.stereotype.Service;
 
 import engineer.mkitsoukou.ntango.domain.ScheduleResult;
-import engineer.mkitsoukou.ntango.domain.Todo;
+import engineer.mkitsoukou.ntango.domain.Task;
 
 @Service
 public class ScheduleTasksUseCase {
@@ -22,9 +22,9 @@ public class ScheduleTasksUseCase {
     // Default constructor.
   }
 
-  public List<ScheduleResult> execute(List<Todo> todos) {
-  Objects.requireNonNull(todos, "todos list must not be null");
-  int nbTasks = todos.size();
+  public List<ScheduleResult> execute(List<Task> tasks) {
+  Objects.requireNonNull(tasks, "todos list must not be null");
+  int nbTasks = tasks.size();
   if (nbTasks == 0) {
     return new ArrayList<>();
   }
@@ -35,7 +35,7 @@ public class ScheduleTasksUseCase {
   IntVar[] endTimes = model.intVarArray("endTimes", nbTasks, 0, MAX_TIME, false);
 
   for (int i = 0; i < nbTasks; i++) {
-    Todo todo = todos.get(i);
+    Task todo = tasks.get(i);
     model.arithm(endTimes[i], "=", startTimes[i], "+", todo.duration()).post();
     model.arithm(startTimes[i], ">=", todo.earliestStart()).post();
     model.arithm(endTimes[i], "<=", todo.deadline()).post();
@@ -64,7 +64,7 @@ public class ScheduleTasksUseCase {
   return IntStream.range(0, nbTasks)
     .parallel()
     .mapToObj(i -> new ScheduleResult(
-      todos.get(i).id(),
+      tasks.get(i).id(),
       solution.getIntVal(startTimes[i]),
       solution.getIntVal(endTimes[i])
      ))

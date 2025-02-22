@@ -1,6 +1,6 @@
 package engineer.mkitsoukou.ntango.domain;
 
-public record Todo(
+public record Task(
     String id,
     int duration,
     int deadline,

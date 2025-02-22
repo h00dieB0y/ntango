@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import engineer.mkitsoukou.ntango.domain.ScheduleResult;
-import engineer.mkitsoukou.ntango.domain.Todo;
+import engineer.mkitsoukou.ntango.domain.Task;
 import engineer.mkitsoukou.ntango.usescases.ScheduleTasksUseCase;
 
 @RestController
@@ -23,7 +23,7 @@ public class SchedulingController {
   }
 
   @PostMapping
-  public List<ScheduleResult> scheduleTasks(@RequestBody List<Todo> tasks) {
+  public List<ScheduleResult> scheduleTasks(@RequestBody List<Task> tasks) {
     return scheduleTasksUseCase.execute(tasks);
   } 
 }
