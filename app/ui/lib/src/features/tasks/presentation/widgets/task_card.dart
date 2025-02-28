@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:ntango/src/features/tasks/data/models/task_model.dart';
 
 class TaskCard extends StatelessWidget {
-  final String timeRange;
-  final String title;
-  final String subtitle;
-  final String badgeText;
+  final TaskModel task;
 
   const TaskCard({
     super.key,
-    required this.timeRange,
-    required this.title,
-    required this.subtitle,
-    required this.badgeText,
+    required this.task,
   });
+
+  String _formatTimeRange() {
+    final timeFormat = DateFormat.jm();
+    return '${timeFormat.format(task.startDate)} - ${timeFormat.format(task.endDate)}';
+  }
+
+  String get badgeText {
+    // Example logic: if the task is completed then show 'Completed', else 'Pending'
+    return task.isCompleted ? 'Completed' : 'Pending';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +32,12 @@ class TaskCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// Top row
+            // Top row
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  timeRange,
+                  _formatTimeRange(),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -40,17 +46,17 @@ class TaskCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
-            /// Title
+            // Title
             Text(
-              title,
+              task.title,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
             ),
             const SizedBox(height: 4),
-            /// Subtitle
+            // Subtitle (using task description)
             Text(
-              subtitle,
+              task.description,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Colors.grey[700],
                   ),

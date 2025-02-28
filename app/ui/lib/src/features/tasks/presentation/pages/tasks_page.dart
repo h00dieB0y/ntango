@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ntango/src/features/tasks/data/models/task_model.dart';
+import 'package:ntango/src/features/tasks/data/repositories/task_repository.dart';
 import 'package:ntango/src/features/tasks/presentation/widgets/task_card.dart';
 
 class TasksPage extends StatelessWidget {
@@ -8,22 +10,30 @@ class TasksPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Tasks')),
-      body: ListView(
-        children: const [
-          TaskCard(
-            timeRange: '9:00 AM - 10:30 AM',
-            title: 'Project Planning',
-            subtitle: 'High Priority',
-            badgeText: 'Focus Time',
-          ),
-          SizedBox(height: 16),
-          TaskCard(
-            timeRange: '11:00 AM - 12:00 PM',
-            title: 'Daily Exercise',
-            subtitle: 'Streak: 5 days',
-            badgeText: 'Habit',
-          ),
-        ],
+      body: FutureBuilder<List<TaskModel>>(
+        future: TaskRepository.getAllTask(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(
+              child: Text('No tasks found'),
+            );
+          } else {
+            final tasks = snapshot.data!;
+            return ListView.separated(
+              padding: const EdgeInsets.all(16),
+              itemCount: tasks.length,
+              separatorBuilder: (context, index) =>
+                  const SizedBox(height: 16),
+              itemBuilder: (context, index) => TaskCard(task: tasks[index]),
+            );
+          }
+        },
       ),
     );
   }

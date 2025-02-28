@@ -3,7 +3,7 @@ import 'package:ntango/src/features/tasks/data/models/task_model.dart';
 
 class TaskRepository {
 
-  Future<List<TaskModel>> getAllTask() async {
+  static Future<List<TaskModel>> getAllTask() async {
     // Mock data
     return [
       TaskModel(
