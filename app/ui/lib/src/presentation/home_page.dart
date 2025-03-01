@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ntango/src/constants/app_assets.dart';
-import 'package:ntango/src/features/tasks/presentation/pages/tasks_list.dart';
+import 'package:ntango/src/features/tasks/presentation/widgets/tasks_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
