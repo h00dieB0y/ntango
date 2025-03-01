@@ -25,18 +25,22 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset(
-            AppAssets.logo,
-            fit: BoxFit.contain,
-          ),
-        ),
-        title: Text(
-          'Ntango',
-          style: textTheme.titleLarge?.copyWith(
-            color: theme.colorScheme.onPrimary,
-          ),
+        title: Row(
+          children: [
+            Image.asset(
+              AppAssets.logo,
+              width: 32,
+              height: 32,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              'Ntango',
+              style: textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: theme.colorScheme.onPrimary,
+              ),
+            ),
+          ],
         ),
         backgroundColor: theme.colorScheme.primary,
       ),
