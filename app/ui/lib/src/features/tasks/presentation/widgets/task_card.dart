@@ -4,7 +4,7 @@ import 'package:ntango/src/features/tasks/data/models/task_model.dart';
 
 class TaskCard extends StatelessWidget {
   final TaskModel task;
-  final VoidCallback? onTap; // Optional tap callback
+  final VoidCallback? onTap;
 
   const TaskCard({
     super.key,
@@ -29,18 +29,30 @@ class TaskCard extends StatelessWidget {
   }
 
   Color _badgeColor(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     if (task.isCompleted) {
-      return Theme.of(context).colorScheme.secondaryContainer;
+      return colorScheme.secondaryContainer;
     } else if (DateTime.now().isAfter(task.startDate) &&
         DateTime.now().isBefore(task.endDate)) {
+      // Using a theme-based amber alternative can be defined in your theme.
       return Colors.amber;
     } else {
-      return Theme.of(context).colorScheme.primaryContainer;
+      return colorScheme.primaryContainer;
+    }
+  }
+
+  Color _badgeTextColor(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    if (task.isCompleted) {
+      return colorScheme.onSecondary;
+    } else {
+      return colorScheme.onPrimary;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Card(
       elevation: 3,
       shape: RoundedRectangleBorder(
@@ -60,36 +72,47 @@ class TaskCard extends StatelessWidget {
                 children: [
                   Text(
                     _formatTimeRange(),
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
                   ),
                   Chip(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      side: BorderSide(style: BorderStyle.none),
+                    ),
                     label: Text(
                       badgeText,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w600,
-                          ),
+                      style: textTheme.bodySmall?.copyWith(
+                        color: _badgeTextColor(context),
+                      ),
                     ),
                     backgroundColor: _badgeColor(context),
-                  )
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
               // Task title
               Text(
                 task.title,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                style: textTheme.titleMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
               ),
               const SizedBox(height: 4),
               // Task description
               Text(
                 task.description,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.grey[700],
-                    ),
+                style: textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+
+                ],
               ),
             ],
           ),
