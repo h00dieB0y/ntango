@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ntango/src/features/tasks/presentation/pages/tasks_page.dart';
+import 'package:ntango/src/presentation/home_page.dart';
 
 void main() {
   runApp(const NtangoApp());
@@ -15,7 +15,8 @@ class NtangoApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const TasksPage(),
+      home: const HomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
