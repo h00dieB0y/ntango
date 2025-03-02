@@ -58,7 +58,7 @@ class LoginBody extends StatelessWidget {
                 'Sign in with your Google account to continue.',
                 textAlign: TextAlign.center,
                 style: textTheme.titleMedium?.copyWith(
-                  color: colorScheme.onPrimary.withOpacity(0.9),
+                  color: colorScheme.onPrimary.withValues(alpha:0.9),
                 ),
               ),
               const SizedBox(height: 32),
@@ -109,7 +109,7 @@ class LoginBody extends StatelessWidget {
                             minimumSize: const Size.fromHeight(50),
                             textStyle: const TextStyle(fontSize: 18),
                             side: BorderSide(
-                              color: colorScheme.onSurface.withOpacity(0.2),
+                              color: colorScheme.onSurface.withValues(alpha: 0.2),
                             ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -126,7 +126,7 @@ class LoginBody extends StatelessWidget {
                 'By signing in, you agree to our Terms of Service\nand Privacy Policy.',
                 textAlign: TextAlign.center,
                 style: textTheme.bodySmall?.copyWith(
-                  color: colorScheme.onPrimary.withOpacity(0.8),
+                  color: colorScheme.onPrimary.withValues(alpha: 0.8),
                 ),
               ),
             ],
