@@ -1,34 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ntango/src/features/auth/data/repositories/login_repository.dart';
+import 'package:ntango/src/features/auth/presentation/cubits/login_cubit.dart';
 import 'package:ntango/src/features/auth/presentation/widgets/login_body.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => LoginCubit(LoginRepository()),
+      child: const LoginView(),
+    );
+  }
 }
 
-class _LoginPageState extends State<LoginPage> {
-  bool _isSigningIn = false;
-
-  Future<void> _signInWithGoogle() async {
-    setState(() => _isSigningIn = true);
-
-    // TODO: Replace with your actual Google sign-in logic.
-    await Future.delayed(const Duration(seconds: 2));
-
-    setState(() => _isSigningIn = false);
-
-    // Navigate to home (adjust route as needed).
-    Navigator.pushNamed(context, '/home');
-  }
+class LoginView extends StatelessWidget {
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LoginBody(
-        isSigningIn: _isSigningIn,
-        onGoogleSignIn: _signInWithGoogle,
+      body: BlocListener<LoginCubit, LoginState>(
+        listener: (context, state) {
+          if (state is LoginSuccess) {
+            Navigator.pushNamed(context, '/home');
+          }
+          if (state is LoginFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.error)),
+            );
+          }
+        },
+        child: BlocBuilder<LoginCubit, LoginState>(
+          builder: (context, state) {
+            final isSigningIn = state is LoginLoading;
+            return LoginBody(
+              isSigningIn: isSigningIn,
+              onGoogleSignIn: () =>
+                  context.read<LoginCubit>().signInWithGoogle(),
+            );
+          },
+        ),
       ),
     );
   }
