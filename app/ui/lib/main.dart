@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ntango/src/constants/app_routes.dart';
 import 'package:ntango/src/presentation/home_page.dart';
+import 'package:ntango/src/presentation/login_page.dart';
 import 'package:ntango/src/theme/ntango_theme.dart';
 
 void main() {
@@ -16,8 +18,12 @@ class NtangoApp extends StatelessWidget {
       theme: ntangoLightTheme,
       darkTheme: ntangoDarkTheme,
       themeMode: ThemeMode.system,
-      home: const HomePage(),
       debugShowCheckedModeBanner: false,
+      initialRoute: AppRoutes.login,
+      routes: {
+        AppRoutes.login: (context) => const LoginPage(),
+        AppRoutes.home: (context) => const HomePage(),
+      },
     );
   }
 }
