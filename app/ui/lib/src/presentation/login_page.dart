@@ -26,7 +26,7 @@ class LoginView extends StatelessWidget {
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {
-            Navigator.pushNamed(context, AppRoutes.home);
+            Navigator.pushReplacementNamed(context, AppRoutes.home);
           }
           if (state is LoginFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
