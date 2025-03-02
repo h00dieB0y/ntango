@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ntango/src/constants/app_routes.dart';
 import 'package:ntango/src/features/auth/data/repositories/login_repository.dart';
 import 'package:ntango/src/features/auth/presentation/cubits/login_cubit.dart';
 import 'package:ntango/src/features/auth/presentation/widgets/login_body.dart';
@@ -25,7 +26,7 @@ class LoginView extends StatelessWidget {
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {
-            Navigator.pushNamed(context, '/home');
+            Navigator.pushNamed(context, AppRoutes.home);
           }
           if (state is LoginFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
